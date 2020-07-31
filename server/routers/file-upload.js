@@ -5,7 +5,7 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 
-const dirPath = path.join(__dirname, '..', 'public/upload')
+const dirPath = path.join(__dirname, '..', 'admin/upload')
 
 const storage = multer.diskStorage({
   // destination: 'upload', //string时,服务启动将会自动创建文件夹
