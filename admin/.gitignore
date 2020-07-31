@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/react-admin
+/build
 /.pnp
 .pnp.js
 
