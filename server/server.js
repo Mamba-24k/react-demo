@@ -32,9 +32,9 @@ app.get('/test', function (req, res) {
 
 const fs = require('fs')
 
-// 必须在路由器中间之后声明使用
-/*app.use((req, res) => {
-  fs.readFile(__dirname + '/public/index.html', (err, data)=>{
+// 必须在路由器中间件 之后声明使用
+app.use((req, res) => {
+  fs.readFile(__dirname + '/admin/index.html', (err, data)=>{
     if(err){
       console.log(err)
       res.send('后台错误')
@@ -45,7 +45,7 @@ const fs = require('fs')
       res.end(data)
     }
   })
-})*/
+})
 
 // 通过mongoose连接数据库
 mongoose.connect('mongodb://127.0.0.1:27017/react_admin', {useNewUrlParser: true})
