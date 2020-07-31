@@ -10,7 +10,7 @@ const express = require('express')
 const app = express() // 产生应用对象
 
 // 声明使用静态中间件
-// app.use(express.static('public'))
+
 app.use('/',express.static(__dirname+'/admin'))
 
 // 声明使用解析post请求的中间件

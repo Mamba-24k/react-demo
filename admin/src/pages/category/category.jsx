@@ -165,7 +165,7 @@ export default class Category extends Component {
                   categoryList.map(item => <Option value={item._id} key={item._id}>{item.name}</Option>)
                 }
               </Select>
-            </Form.Item>ß
+            </Form.Item>
             <Form.Item name="categoryName" label="分类名称" rules={[{ required: true, whitespace: true, message: '分类名称必须填写' }]}>
               <Input placeholder="请输入分类名称" />
             </Form.Item>
