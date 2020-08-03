@@ -8,7 +8,9 @@ import { connect } from 'react-redux'
 import { clearUser } from '../../redux/actions'
 
 
-import { Modal } from 'antd';
+import { Modal, Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
 import dayjs from 'dayjs'
 import jsonp from 'jsonp' // 或安装 fetch-jsonp
 // import menuList from '../../assets/js/menuConfig'
@@ -136,6 +138,32 @@ const loginOut = (props) => {
     },
   });
 }
+const onTitleClick = ({ key, domEvent }) => {
+  console.log({ key, domEvent })
+}
+const onSelect = ({ item, key, keyPath, selectedKeys, domEvent }) => {
+  console.log(item, key, keyPath, selectedKeys, domEvent)
+}
+let version = 'react'
+const handleClick = e => {
+  console.log('click ', e);
+  version = e.key
+  document.cookie = `version=${version};path=/;`
+  window.location = 'https://www.coco727.com'
+};
+const menu = (
+  <Menu onClick={handleClick}>
+    <Menu.Item key="nuxt">
+      nuxt.js
+    </Menu.Item>
+    <Menu.Item key="vue">
+      vue.js
+    </Menu.Item>
+    <Menu.Item key="react" disabled>
+      react.js
+    </Menu.Item>
+  </Menu>
+);
 const Header = (props) => {
   const [currentTime, setCurrentTime] = useState('')
   const [weatherInfo, setWeatherInfo] = useState({})
@@ -161,8 +189,19 @@ const Header = (props) => {
   return (
     <div className='header-box'>
       <div className='header-top'>
-        <span>Hello! {username}</span>
-        <a href="#!" rel="noopener noreferrer" onClick={() => loginOut(props)}>退出</a>
+        <div className="dropdown-box">
+        <Dropdown overlay={menu} className="dropdown">
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            版本: {version}.js <DownOutlined />
+          </a>
+        </Dropdown>
+        </div>
+
+        <div className="top-right">
+          <span>Hello! {username}</span>
+          <a href="#!" rel="noopener noreferrer" onClick={() => loginOut(props)}>退出</a>
+        </div>
+
       </div>
       <div className='header-bottom'>
         <div className="bottom-left">
@@ -179,5 +218,5 @@ const Header = (props) => {
 }
 export default connect(
   state => ({ currentTitle: state.headTitle, userInfo: state.user }),
-  {clearUser}
+  { clearUser }
 )(Header)

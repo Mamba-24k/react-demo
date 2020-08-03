@@ -26,15 +26,29 @@
 .header-box{
   height:80px;
   background-color: #fff;
+  
+
   .header-top{
     height:40px;
     line-height: 40px;
-    text-align: right;
     padding-right:16px;
     border-bottom: 1px solid #1DA57A;
-    span{
-      margin-right: 15px;
+    display: flex;
+    .dropdown-box{
+      flex:1;
+      text-align: center;
+      .dropdown{
+        width: 100px;
+      }
     }
+    .top-right{
+      width: 150px;
+      text-align: right;
+      span{
+        margin-right: 15px;
+      }
+    }
+
   }
   .header-bottom{
     height:40px;

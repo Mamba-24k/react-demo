@@ -68,7 +68,6 @@ const getOpenKey = (path) => {
 }
 
 const sideBar = (props) => {
-  console.log(props)
   let currentPath = props.location.pathname
   if (currentPath.indexOf('/product') === 0) {
     currentPath = '/product'
