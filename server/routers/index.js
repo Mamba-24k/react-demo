@@ -360,8 +360,12 @@ router.post('/manage/role/update', (req, res) => {
       res.send({status: 1, msg: '更新角色异常, 请重新尝试'})
     })
 })
-
-
+// 更新产品状态(上架/下架)
+router.get('/manage/promiseArr', (req, res) => {
+  const num = req.query.num
+  let zimu = 'abcdefghijklmnopqrstuvwxyz'
+  res.send({status: 1, data: zimu[num-1]})
+})
 /*
 得到指定数组的分页信息对象
  */

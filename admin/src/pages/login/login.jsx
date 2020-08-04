@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 // import $myAxios from '../../api/myAxios'
 
 import './login.less'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/mamba.png'
 import { asyncSetUser } from '../../redux/actions'
 
 const validPassWord = (rule, value, callback) => {
@@ -29,9 +29,9 @@ const validPassWord = (rule, value, callback) => {
   }
 }
 const Login = (props) => {
-  // const userInfo = JSON.parse(localStorage.userInfo || '{}')
-  const userInfo = props.userInfo || {}
-  if (userInfo && userInfo._id) {
+  // const userInfos = JSON.parse(localStorage.userInfos || '{}')
+  const userInfos = props.userInfos || {}
+  if (userInfos && userInfos._id) {
     return <Redirect to='/'></Redirect>
   }
   const [form] = Form.useForm()
@@ -44,7 +44,7 @@ const Login = (props) => {
         // $myAxios('loginApi', values).then(res => {
         //   if (res.status === 0) {
         //     message.success('登陆成功')
-        //     localStorage.userInfo = JSON.stringify(res.data)
+        //     localStorage.userInfos = JSON.stringify(res.data)
         //     props.history.replace('/')
         //   } else if (res.status === 1) {
         //     message.error(res.msg)
@@ -78,6 +78,6 @@ const Login = (props) => {
   )
 }
 export default connect(
-  state => ({userInfo: state.user}),
+  state => ({userInfos: state.user}),
   {asyncSetUser}
 )(Login) 

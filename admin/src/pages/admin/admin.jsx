@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import Header from '../../components/admin/header'
 import Sidebar from '../../components/admin/sideBar'
 import BreadRoutes from '../../components/admin/breadcrumb'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/mamba.png'
 import Home from '../home/home'
 import Category from '../category/category'
 import Product from '../product/product'
@@ -31,9 +31,9 @@ class Admin extends Component {
     this.setState({ collapsed });
   }
   render() {
-    // const userInfo = JSON.parse(localStorage.userInfo || '{}')
-    const userInfo = this.props.userInfo || {}
-    if (!userInfo || !userInfo._id) {
+    // const userInfos = JSON.parse(localStorage.userInfos || '{}')
+    const userInfos = this.props.userInfos || {}
+    if (!userInfos || !userInfos._id) {
       return <Redirect to='/login'></Redirect>
     }
     return (
@@ -80,6 +80,6 @@ class Admin extends Component {
   }
 }
 export default connect(
-  state => ({userInfo : state.user}),
+  state => ({userInfos : state.user}),
   {}
 )(Admin) 

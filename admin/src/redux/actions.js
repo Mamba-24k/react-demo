@@ -13,7 +13,7 @@ export const asyncIncrease = number => {
 export const setHeadTitle = title => ({ type: SET_HEAD_TITLE, data: title })
 export const setUser = user => ({ type: SET_USER, data: user })
 export const clearUser = user => {
-  localStorage.removeItem('userInfo')
+  localStorage.removeItem('userInfos')
   return { type: CLEAR_USER, data: user }
 }
 export const asyncSetUser = user => {
@@ -21,7 +21,7 @@ export const asyncSetUser = user => {
     $myAxios('loginApi', user).then(res => {
       if (res.status === 0) {
         message.success('登陆成功')
-        localStorage.userInfo = JSON.stringify(res.data)
+        localStorage.userInfos = JSON.stringify(res.data)
         dispatch(setUser(res.data))
       } else if (res.status === 1) {
         message.error(res.msg)

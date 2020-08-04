@@ -14,10 +14,10 @@ const { SubMenu } = Menu;
 const getIsAuth = (item, props) => {
 
   let { key, isPublic } = item
-  // let userInfo = JSON.parse(localStorage.userInfo || "{}")
-  const userInfo = props.userInfo || {}
-  let userName = userInfo.username
-  let menus = userInfo.role_id ? userInfo.role_id.menus : []
+  // let userInfos = JSON.parse(localStorage.userInfos || "{}")
+  const userInfos = props.userInfos || {}
+  let userName = userInfos.username
+  let menus = userInfos.role_id ? userInfos.role_id.menus : []
   if (userName === 'admin' || isPublic || menus.indexOf(key) !== -1) {
     return true
   } else if (item.children) {

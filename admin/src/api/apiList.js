@@ -1,4 +1,8 @@
 const apiList = {
+  promiseArr: {
+    method: 'get',
+    url: '/manage/promiseArr'
+  },
   loginApi: {
     method: 'post',
     url: '/manage/login'

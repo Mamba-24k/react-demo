@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 // import {combineReducers} from '../lib/my-redux'
-
 import { INCREASR, DECREASE, SET_HEAD_TITLE, SET_USER, CLEAR_USER } from './action-types'
 
 
@@ -24,8 +23,8 @@ function headTitle(state = '首页', action) {
       return state
   }
 }
-let userInfo = JSON.parse(localStorage.userInfo || '{}')
-function user(state = userInfo, action) {
+let userInfos = JSON.parse(localStorage.userInfos || '{}')
+function user(state = userInfos, action) {
   // console.log('user', state, action)
   switch (action.type) {
     case SET_USER:

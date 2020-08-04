@@ -12,6 +12,7 @@ import { Modal, Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import dayjs from 'dayjs'
+import axios from 'axios'
 import jsonp from 'jsonp' // 或安装 fetch-jsonp
 // import menuList from '../../assets/js/menuConfig'
 
@@ -65,7 +66,7 @@ import jsonp from 'jsonp' // 或安装 fetch-jsonp
 //     Modal.confirm({
 //       title: '确认退出?',
 //       onOk: () => {
-//         localStorage.removeItem('userInfo')
+//         localStorage.removeItem('userInfos')
 //         this.props.history.replace('/login')
 //       },
 //       onCancel: () => {
@@ -74,7 +75,7 @@ import jsonp from 'jsonp' // 或安装 fetch-jsonp
 //     });
 //   }
 //   render() {
-//     const { username } = JSON.parse(localStorage.userInfo || '{}')
+//     const { username } = JSON.parse(localStorage.userInfos || '{}')
 //     const currentTitle = this.getTitle(this.props.location.pathname)
 //     return (
 //       <div className='header-box'>
@@ -98,6 +99,24 @@ import jsonp from 'jsonp' // 或安装 fetch-jsonp
 // }
 // export default withRouter(Header)
 
+const getCity = () => {
+  // axios.get('http://pv.sohu.com/cityjson?ie=utf-8').then(res => {
+  //   console.log(res)
+  // })
+  // return new Promise((resolve, reject) => {
+  //   let url = `http://pv.sohu.com/cityjson?ie=utf-8`
+  //   debugger
+  //   jsonp(url, {}, (err, data) => {
+  //     if (!err) {
+  //       console.log(data)
+  //       resolve(data)
+  //     } else {
+  //       reject(data)
+  //     }
+  //   })
+  // })
+  console.log(window,window.cookie)
+}
 const getWeatherInfo = (city) => {
   return new Promise((resolve, reject) => {
     let url = `http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
@@ -130,19 +149,13 @@ const loginOut = (props) => {
     title: '确认退出?',
     onOk: () => {
       props.clearUser()
-      // localStorage.removeItem('userInfo')
+      // localStorage.removeItem('userInfos')
       // props.history.replace('/login')
     },
     onCancel: () => {
       console.log('Cancel');
     },
   });
-}
-const onTitleClick = ({ key, domEvent }) => {
-  console.log({ key, domEvent })
-}
-const onSelect = ({ item, key, keyPath, selectedKeys, domEvent }) => {
-  console.log(item, key, keyPath, selectedKeys, domEvent)
 }
 let version = 'react'
 const handleClick = e => {
@@ -169,8 +182,8 @@ const Header = (props) => {
   const [weatherInfo, setWeatherInfo] = useState({})
   // const currentTitle = getTitle(props.location.pathname)
   const currentTitle = props.currentTitle
-  // const { username } = JSON.parse(localStorage.userInfo || '{}')
-  const { username } = props.userInfo || {}
+  // const { username } = JSON.parse(localStorage.userInfos || '{}')
+  const { username } = props.userInfos || {}
   useEffect(() => {
     let timer = setTimeout(() => {
       setCurrentTime(() => dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'))
@@ -182,7 +195,8 @@ const Header = (props) => {
   useEffect(() => {
     fetchData()
     async function fetchData() {
-      let weatherInfo = await getWeatherInfo('杭州')
+      const city = window.cookie.cname
+      let weatherInfo = await getWeatherInfo(city)
       setWeatherInfo(weatherInfo)
     }
   }, [])
@@ -190,11 +204,11 @@ const Header = (props) => {
     <div className='header-box'>
       <div className='header-top'>
         <div className="dropdown-box">
-        <Dropdown overlay={menu} className="dropdown">
-          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            版本: {version}.js <DownOutlined />
-          </a>
-        </Dropdown>
+          <Dropdown overlay={menu} className="dropdown">
+            <a href="#!" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              版本: {version}.js <DownOutlined />
+            </a>
+          </Dropdown>
         </div>
 
         <div className="top-right">
@@ -208,7 +222,8 @@ const Header = (props) => {
           {currentTitle}
         </div>
         <div className="bottom-right">
-          <span>{currentTime}</span>
+          <span>{currentTime} </span>
+          <span>{window.cookie.cname}</span>
           <img src={weatherInfo.dayPictureUrl} alt="weather" />
           <span>{weatherInfo.weather}</span>/<span>{weatherInfo.temperature}</span>
         </div>
@@ -217,6 +232,6 @@ const Header = (props) => {
   )
 }
 export default connect(
-  state => ({ currentTitle: state.headTitle, userInfo: state.user }),
+  state => ({ currentTitle: state.headTitle, userInfos: state.user }),
   { clearUser }
 )(Header)

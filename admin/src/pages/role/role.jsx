@@ -83,9 +83,9 @@ class Role extends Component {
     const { role } = this.state
     let menus = this.treeFormRef.current.getMenus()
     role.menus = menus
-    // console.log(localStorage.userInfo)
-    // role.auth_name = JSON.parse(localStorage.userInfo || '{}').username
-    role.auth_name = this.props.userInfo&&this.props.userInfo.username
+    // console.log(localStorage.userInfos)
+    // role.auth_name = JSON.parse(localStorage.userInfos || '{}').username
+    role.auth_name = this.props.userInfos&&this.props.userInfos.username
     let res = await $myAxios('updateRoleApi', role)
     if (res.status === 0) {
       message.success('设置角色权限成功')
@@ -159,6 +159,6 @@ class Role extends Component {
   }
 }
 export default connect(
-  state => ({userInfo: state.user}),
+  state => ({userInfos: state.user}),
   {}
 )(Role)
