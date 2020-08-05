@@ -164,7 +164,7 @@ const handleClick = e => {
   document.cookie = `version=${version};path=/;`
   window.location = 'https://www.coco727.com'
 };
-const menu = (
+const versionList = (
   <Menu onClick={handleClick}>
     <Menu.Item key="nuxt">
       nuxt.js
@@ -204,7 +204,7 @@ const Header = (props) => {
     <div className='header-box'>
       <div className='header-top'>
         <div className="dropdown-box">
-          <Dropdown overlay={menu} className="dropdown">
+          <Dropdown overlay={versionList} className="dropdown">
             <a href="#!" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
               版本: {version}.js <DownOutlined />
             </a>

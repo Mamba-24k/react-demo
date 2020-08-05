@@ -1,7 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form, Input, Button } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button,Menu,Dropdown} from 'antd';
+import { UserOutlined, LockOutlined,DownOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 
 // import $myAxios from '../../api/myAxios'
@@ -28,6 +28,26 @@ const validPassWord = (rule, value, callback) => {
     // callback()
   }
 }
+let version = 'react'
+const handleClick = e => {
+  console.log('click ', e);
+  version = e.key
+  document.cookie = `version=${version};path=/;`
+  window.location = 'https://www.coco727.com'
+};
+const versionList = (
+  <Menu onClick={handleClick}>
+    <Menu.Item key="nuxt">
+      nuxt.js
+    </Menu.Item>
+    <Menu.Item key="vue">
+      vue.js
+    </Menu.Item>
+    <Menu.Item key="react" disabled>
+      react.js
+    </Menu.Item>
+  </Menu>
+)
 const Login = (props) => {
   // const userInfos = JSON.parse(localStorage.userInfos || '{}')
   const userInfos = props.userInfos || {}
@@ -57,13 +77,22 @@ const Login = (props) => {
   return (
     <div className="login-box">
       <header className="login-header">
+        <div className="header-left">
         <img src={logo} alt="logo" />
         <h1>React项目：后台管理系统</h1>
+        </div>
+        <div className="dropdown-box">
+          <Dropdown overlay={versionList} className="dropdown">
+            <a href="#!" className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              版本: {version}.js <DownOutlined />
+            </a>
+          </Dropdown>
+        </div>
       </header>
       <section className="login-content">
         <h2>用户登陆</h2>
         <Form className="login-form" form={form} onFinish={onFinish}>
-          <Form.Item name="username" hasFeedback rules={[{ required: true, whitespace: true, message: 'Please input your Username!' }]}>
+          <Form.Item name="username" hasFeedback rules={[{ required: true, whitespace: true, message: '用户名必须输入' }]}>
             <Input prefix={<UserOutlined />} placeholder="Username" />
           </Form.Item>
           <Form.Item name="password" hasFeedback rules={[{ required: true, whitespace: true, validator: validPassWord }]}>
