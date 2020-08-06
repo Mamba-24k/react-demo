@@ -104,6 +104,9 @@ export default class User extends Component {
       .then(async values => {
         this.setState({loading: true})
         let url = this.state.user._id ? 'updateUserApi' : 'addUserApi'
+        if (this.state.user._id) {
+          values._id = this.state.user._id
+        }
         let res = await $myAxios(url, values)
         if (res.status === 0) {
           this.setState({ isShowAdd: false,isShowSet: false,loading: false })
