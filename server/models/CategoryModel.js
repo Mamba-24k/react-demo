@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const categorySchema = new mongoose.Schema({
   name: {type: String, required: true},
   parentId: {type: String, required: true},
-  isLeaf: {type: Boolean}
+  isLeaf: {type: Boolean, required: true}
 })
 
 // 3. 定义Model(与集合对应, 可以操作集合)

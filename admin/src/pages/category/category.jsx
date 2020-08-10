@@ -13,7 +13,8 @@ export default class Category extends Component {
     parentName: '',
     categoryList: [],
     subCategoryList: [],
-    categoryId: ''
+    categoryId: '',
+    isLeaf: false
   }
   componentDidMount() {
     this.initColumns()
@@ -81,7 +82,7 @@ export default class Category extends Component {
     this.addFormRef.current.setFieldsValue({ parentId: this.state.parentId })
   }
   showUpdate = (row) => {
-    this.setState({ visibleStatus: 2, categoryId: row._id })
+    this.setState({ visibleStatus: 2, categoryId: row._id,isLeaf:row.isLeaf})
     this.updateFormRef.current.setFieldsValue({ categoryName: row.name, categoryId: row._id })
   }
   handleCancel = () => {
@@ -112,7 +113,7 @@ export default class Category extends Component {
       .then(values => {
         console.log(values)
         console.log(this.updateFormRef.current.getFieldsValue())
-        $myAxios('updateCategoryApi', { categoryId: this.state.categoryId, categoryName: values.categoryName }).then(res => {
+        $myAxios('updateCategoryApi', { categoryId: this.state.categoryId, categoryName: values.categoryName,isLeaf: this.state.isLeaf }).then(res => {
           if (res.status === 0) {
             message.success('操作成功')
             this.getCategoryList()

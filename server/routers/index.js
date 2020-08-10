@@ -153,13 +153,13 @@ router.get('/manage/user/list', (req, res) => {
 
 // 添加分类
 router.post('/manage/category/add', (req, res) => {
-  const {categoryName,parentId} = req.body
+  const {categoryName,parentId,isLeaf} = req.body
   CategoryModel.findOne({name: categoryName})
     .then(category => {
       if (category) {
         res.send({status: 1, msg: '此分类已存在'})
       } else {
-        CategoryModel.create({name: categoryName,parentId:parentId})
+        CategoryModel.create({name: categoryName,parentId:parentId,isLeaf})
           .then(category => {
             res.send({status: 0, data: category})
           })
@@ -187,8 +187,8 @@ router.get('/manage/category/list', (req, res) => {
 
 // 更新分类名称
 router.post('/manage/category/update', (req, res) => {
-  const {categoryId, categoryName} = req.body
-  CategoryModel.findOneAndUpdate({_id: categoryId}, {name: categoryName})
+  const {categoryId, categoryName,isLeaf} = req.body
+  CategoryModel.findOneAndUpdate({_id: categoryId}, {name: categoryName},{isLeaf})
     .then(oldCategory => {
       res.send({status: 0})
     })
